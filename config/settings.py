@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # 3rd Party
     'crispy_forms',
+    'crispy_bootstrap5',
 
     # local apps
     "accounts.apps.AccountsConfig",
@@ -138,7 +139,8 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Bootstrap
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5" 
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 # Custom User
 AUTH_USER_MODEL = 'accounts.CustomUser'
@@ -147,3 +149,5 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'about'
 
+# email setups
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend" 
