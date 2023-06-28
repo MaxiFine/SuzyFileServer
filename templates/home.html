@@ -1,0 +1,30 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+
+<h1>Homepage</h1>
+<br>
+
+<div class="jumbotron">
+    <h1 class="display-4">File Service</h1>
+    <p class="lead">Welcome to Suzzy's File Service...</p>
+    <p class="lead">
+        All you'll need is here...
+    </p>
+</div>
+
+<br>
+
+{% if user.is_authenticated %}
+    <p>Hi {{ user.email }}!</p>
+{% else %}
+    <p>You are not logged in</p>
+    <p><a href="#">Log In</a> |
+    <a href="#">Sign Up</a></p>
+{% endif %}
+
+{% endblock content %}
+
