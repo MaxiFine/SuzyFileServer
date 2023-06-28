@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6x&vvuq)v&who)4#bhm7jwulpu*@^+a4kh4%gdta5v-#kaw*!e'
+SECRET_KEY = 'django-insecure-0iwiytn7^hrwio$4x+r&)cr^d$i^&tur2pj59_bgyd89r@ei#j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # 3rd Party
+    'crispy_forms',
+
+    # local apps
+    "accounts.apps.AccountsConfig",
+    "pages.apps.PagesConfig",
+
+
 ]
 
 MIDDLEWARE = [
@@ -54,7 +63,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [str(BASE_DIR.joinpath("templates"))],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -114,10 +123,27 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
+# Statics
 STATIC_URL = 'static/'
+STATICFILES_DIRS = (BASE_DIR / 'static',)
+STATIC_ROOT = BASE_DIR / 'staticfiles/'
+
+# Media
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Bootstrap
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# Custom User
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
+# LOGIN LOGOUT DIRECTIONS
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'about'
+

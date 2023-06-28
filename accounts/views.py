@@ -11,11 +11,11 @@ from .forms import SignUpForm
 
 
 
-# # Class Based View to test the signup
-# class SignUpView(CreateView):
-#     form_class = UserCreationForm
-#     success_url = reverse_lazy("login")
-#     template_name = "registration/signup.html"
+# # # Class Based View to test the signup
+# # class SignUpView(CreateView):
+# #     form_class = UserCreationForm
+# #     success_url = reverse_lazy("login")
+# #     template_name = "registration/signup.html"
 
 
 
