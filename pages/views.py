@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import File
+from .forms import FileUploadForm
 
 
 # Create your views here.
@@ -14,7 +15,7 @@ def about(request):
 
 def feeds_page(request):
     files = File.objects.all()
-    return render(request, 'feeds_page.html', {'files': files})
+    return render(request, 'feeds.html', {'files': files})
 
 
 def file_preview(request, file_id):
