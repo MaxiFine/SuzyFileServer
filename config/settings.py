@@ -151,3 +151,6 @@ LOGOUT_REDIRECT_URL = 'about'
 
 # email setups
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend" 
+
+
+ 

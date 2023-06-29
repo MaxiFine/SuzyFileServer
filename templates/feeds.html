@@ -1,0 +1,9 @@
+<!-- feed.html -->
+{% for file in files %}
+  <div class="file-item">
+    <h3>{{ file.title }}</h3>
+    <p>{{ file.description }}</p>
+    <a href="{% url 'file_preview' file.id %}">Preview</a>
+    <a href="{% url 'file_download' file.id %}">Download</a>
+  </div>
+{% endfor %}
