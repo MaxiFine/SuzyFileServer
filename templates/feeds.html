@@ -7,13 +7,13 @@
   <div class="grid-container">
     {% for file in files %}
     <div class="grid-item">
-        <img src="{{ file.url }}" alt="File Preview">
         <h2>{{ file.title }}</h2>
         <p>{{ file.description }}</p>
         <!-- Other file details and content -->
         <a href="{% url 'file_preview' file.id %}">Preview</a>
         <a href="{% url 'file_download' file.id %}">Download</a>
     </div>
+   </div>
     
 {% endfor %}
 

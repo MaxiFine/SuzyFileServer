@@ -8,6 +8,6 @@ urlpatterns = [
     path('feeds/', feeds_page, name='feed'),
     path('file/<int:file_id>/preview/', file_preview, name='file_preview'),
     path('file/<int:file_id>/download/', file_download, name='file_download'),
-    path('file/upload/', file_upload, name='file_upload'),
+    path('file/upload/', file_upload, name='uploads'),
 ]
 
