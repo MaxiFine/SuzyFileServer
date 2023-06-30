@@ -1,3 +1,5 @@
+from django.views.generic import ListView
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
@@ -44,15 +46,19 @@ def file_upload(request):
     return render(request, 'file_upload.html', {'form': form})
 
 
-# # file upload view
-# @login_required
-# def file_upload(request):
-#     if request.method == 'POST' and request.FILES:
-#         uploaded_file = request.FILES
-#         file = File(file=uploaded_file)
-#         file.save()
-#         return redirect("feed")
-#     else:
-#         form = FileUploadForm()
-#     return render(request, 'file_upload.html', {'form': form})
+# Done with the feeds, uploads and downloads
+# next is now search and then previews then 
+# emails sending and then checking all downloads
+# and the downloads of each file
+
+class SearchResultsListView(ListView): 
+    model = File
+    context_object_name = "searches"
+    template_name = "search_.html"
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        return File.objects.filter(
+            Q(title__icontains=query) | Q(description__icontains=query))
+    
 

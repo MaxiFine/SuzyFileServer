@@ -1,0 +1,14 @@
+{% extends "_base.html" %}
+
+{% block title %}Search{% endblock title %}
+
+{% block content %}
+    <h1>Search Results</h1>
+    {% for search in searches %}
+        <div>
+        <h3><a href="{{ pages.get_absolute_url }}">{{ search.title }}</a></h3>
+        <p>{{ search.description }}</p>
+        
+        </div>
+    {% endfor %}
+{% endblock content %}
