@@ -1,7 +1,6 @@
 from django.urls import path
-from .views import (about, home, feeds_page,
-                    file_preview, file_download, file_upload,
-                    SearchResultsListView, send_email)
+from .views import (about, home, feeds_page, file_download, file_upload,
+                    search_view, send_email, file_detail_view)
 
 urlpatterns = [
     path('', home, name='home'),
@@ -9,9 +8,9 @@ urlpatterns = [
     path('feeds/', feeds_page, name='feed'),
     path('file/<int:file_id>/download/', file_download, name='file_download'),
     path('file/upload/', file_upload, name='uploads'),
-    path("search/", SearchResultsListView.as_view(), name="search_results"), 
-    path('file/<int:file_id>/preview/', file_preview, name='file_preview'),
-    path('send_email/<int:pk>/', send_email, name='emails'),
+    path("search/", search_view, name="search_results"), 
+    path('file/<int:file_id>/detail/', file_detail_view, name='file_detail'),
+    path('send_email/<int:file_id>/', send_email, name='emails'),
     #path('email-file/<int:file_id>/', send_email, name='email_file')
 ]
 
