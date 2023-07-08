@@ -10,3 +10,9 @@ class FileUploadForm(forms.ModelForm):
         fields = ('title', 'description', 'file',)
 
 
+# Sending Email
+class EmailFileForm(forms.ModelForm):
+    class Meta:
+        model = File
+        fields = ('title', 'description', 'file',)\
+        

@@ -1,10 +1,12 @@
 from django.views.generic import ListView
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.mail import EmailMessage
 from django.http import HttpResponse
 from .models import File
-from .forms import FileUploadForm
+from .forms import FileUploadForm, EmailFileForm
 
 
 # Create your views here.
@@ -62,3 +64,55 @@ class SearchResultsListView(ListView):
             Q(title__icontains=query) | Q(description__icontains=query))
     
 
+# def send_email(request, pk):
+#     file = get_object_or_404(File, pk=pk)
+#     if request.method == 'POST':
+#         form = EmailFileForm(request.POST, request.FILES,)
+#         if form.is_valid():
+#             recipient_email = form.cleaned_data['recipient_email']
+#             subject = form.cleaned_data['subject']
+            
+#             email = EmailMessage(
+#                 subject,
+#                 'Please consider the attached file',
+#                 'gibboel5@gmail.com',
+#                 [recipient_email],
+#             )
+#             email.attach_file(file.file.path)
+#             email.send()
+
+#             # Count email sent
+#             file.emails_sent += 1
+#             file.save()
+
+#             messages.success(request, 'File Sent')
+#             return redirect('feed')
+#     else:
+#         form = EmailFileForm()
+    
+#     return render(request, 'email_file.html', {'form': form})
+
+
+def send_email(request, file_id):
+    file = get_object_or_404(File, id=file_id)
+    sent = False
+    if request.method == 'POST':
+        recipient_email = request.POST.get('recipient_email')
+        
+        email = EmailMessage(
+                'File Email',
+                'Please consider the attached file',
+                'gibboel5@gmail.com',
+                [recipient_email],
+        )
+        # Attach file to the email
+        email.attach_file(file.file.path)
+        email.send()
+    
+        # Update count of emails sent
+        file.emails_sent += 1
+        file.save()
+        messages.success(request=request, message='File Emailed')
+        sent = True
+        return redirect('feed')
+    

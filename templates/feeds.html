@@ -12,6 +12,7 @@
         <!-- Other file details and content -->
         <a href="{{file.file.url}}" target="_blank">Preview</a>
         <a href="{% url 'file_download' file.id %}">Download</a>
+        <a href="{% url 'emails' file.id %}">Send Email</a>
     </div>
    </div>
     
