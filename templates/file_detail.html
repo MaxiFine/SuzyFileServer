@@ -1,0 +1,104 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="mt-4 mb-3">{{ file.title }} Details</h1>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card h-100">
+          {% if file.get_file_type == 'image' %}
+            <img src="{{ file.file.url }}" width="100%" height="300px">
+          {% elif file.get_file_type == 'audio' %}
+            <div class="card-body">
+              <audio controls>
+                <source src="{{ file.file.url }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+              </audio>
+            </div>
+          {% elif file.get_file_type == 'video' %}
+            <div class="card-body">
+              <div class="embed-responsive embed-responsive-16by9">
+                <video controls>
+                  <source src="{{ file.file.url }}" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          {% elif file.get_file_type == 'application' %}
+            <div class="card-body">
+              <img src="{% static 'pdf_icon.png' %}" width="100%" height="300px">
+            </div>
+          {% endif %}
+          <div class="card-footer d-flex justify-content-center">
+            <div class="btn-group" role="group">
+              <a class="btn btn-outline-dark mx-1" href="{{ file.file.url }}" target="_blank">Preview</a>
+              <a class="btn btn-outline-success mx-1" href="{% url 'file_download' file_id=file.pk %}" download>Download</a>
+              <a class="btn btn-outline-primary mx-1" href="{% url 'emails' file_id=file.pk %}">Email</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-8 col-md-12">
+        <h5>Description:</h5>
+        <p>{{ file.description }}</p>
+        {% if user.is_staff %}
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-md-12">
+              <div class="card mt-4">
+                <div class="card-body">
+                  <h5 class="card-title">{{file.title}} Statistics</h5>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="card mb-3">
+                        <div class="card-body">
+                          <h6 class="card-subtitle mb-2 text-muted">Number of Downloads</h6>
+                          <p class="card-text">{{ file.downloads }}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="card mb-3">
+                        <div class="card-body">
+                          <h6 class="card-subtitle mb-2 text-muted">Number of Emails Sent</h6>
+                          <p class="card-text">{{ file.emails_sent }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}        
+      </div>
+    </div>
+  </div>
+
+  <!-- Email Modal -->
+  <div class="modal fade" id="emailModal{{ file.pk }}" tabindex="-1" aria-labelledby="emailModalLabel{{ file.pk }}" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="emailModalLabel{{ file.pk }}">Send Email</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="#" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="recipientEmail" class="form-label">Recipient Email</label>
+              <input type="email" class="form-control" id="recipientEmail" name="recipient_email" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
