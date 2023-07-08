@@ -146,8 +146,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # LOGIN LOGOUT DIRECTIONS
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'about'
+LOGIN_REDIRECT_URL = 'feed'
+LOGOUT_REDIRECT_URL = 'home'
 
 # email setups
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
