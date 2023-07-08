@@ -78,7 +78,7 @@ def login_view(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return redirect('home')
+                    return redirect('feed')
                 messages.warning(request, 'Account Not Activated. Check Your Email/Spam for Activation link!')
                 return redirect('login')
             messages.error(request, 'Wrong Email or Password!')
