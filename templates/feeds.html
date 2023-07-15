@@ -2,7 +2,13 @@
 {% load static %}
 {% block content %}
   <div class="container">
-    <h1 class="mt-4 mb-3">Feed</h1>
+    <h1 class="mt-4 mb-3">Feeds Page
+      {% if user.is_staff %}
+      <div class="float-right">
+        <a class="btn btn-outline-primary" href="{% url 'uploads' %}">Upload a file</a>
+      </div>
+    {% endif %}
+    </h1>
 
     <div class="row">
       {% for file in files %}

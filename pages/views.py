@@ -1,4 +1,3 @@
-from django.views.generic import ListView
 from django.db.models import Q
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
@@ -52,7 +51,6 @@ def file_upload(request):
         form = FileUploadForm(request.POST, request.FILES)
         if form.is_valid():
             file = form.save(commit=False)
-            file.uploaded_by = request.user
             file.save()
             return redirect('feed')
     else:
@@ -96,7 +94,7 @@ def send_email(request, file_id):
         # Update count of emails sent
         file.emails_sent += 1
         file.save()
-        messages.success(request=request, message=f'"{file.title}" successfully emailed')
+        messages.success(request=request, message=f'"{file.title}" successfully sent')
         return redirect('file_detail', file_id)
     else:
         form = EmailFileForm()

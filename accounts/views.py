@@ -20,7 +20,7 @@ def signup_view(request):
             user.is_active = False
             user.save()
             
-            # let's email to the user for account verification
+            # Email user for account verification
             host_name = request.get_host()
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             token = default_token_generator.make_token(user)
@@ -39,7 +39,9 @@ def signup_view(request):
             
             email.content_subtype="html"
             email.send()
-            messages.info(request=request, message='Account Created. A link has been sent to your Email')
+            messages.info(request=request, message='Your account have been created. '
+                          'A link has been sent to your Email address, '
+                           'click on the link to activate your account to login')
             print(user.email)
             return redirect('login')
     else:
@@ -58,14 +60,16 @@ def activate(request, uidb64, token):
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
-        messages.success(request=request, message='Account Activated. Kindly Login')
+        messages.success(request=request, message='Congratulations! You have activated your account. '
+                         'Kindly Login to access the files')
         return redirect('login')
     else:
-        messages.error(request, 'Invalid Activation Link')
+        messages.error(request, 'Invalid Activation Link, the link last for only 24hrs. '
+                       'kindly signup again for a new link and activate as soon as possible. ')
         return redirect('login')
     
 def login_view(request):
-    # prevent authenticated user from accessing this view
+    # direct authenticated users to home 
     if request.user.is_authenticated:
         return redirect('home')
     
@@ -79,10 +83,13 @@ def login_view(request):
                 if user.is_active:
                     login(request, user)
                     return redirect('feed')
-                messages.warning(request, 'Account Not Activated. Check Your Email/Spam for Activation link!')
+                messages.warning(request, 'Account Not Activated. Check Your Email/Spam for Activation link! to verify your account.')
                 return redirect('login')
-            messages.error(request, 'Wrong Email or Password!')
+            messages.error(request, 'Wrong Email or Password! Please check your details properly. ')
             return redirect('login')
     else:
         form = LoginForm()
     return render(request, 'registration/login.html', {'form': form})
+
+    
+    

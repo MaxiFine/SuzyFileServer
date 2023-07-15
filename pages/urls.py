@@ -11,6 +11,6 @@ urlpatterns = [
     path("search/", search_view, name="search_results"), 
     path('file/<int:file_id>/detail/', file_detail_view, name='file_detail'),
     path('send_email/<int:file_id>/', send_email, name='emails'),
-    #path('email-file/<int:file_id>/', send_email, name='email_file')
+    
 ]
 

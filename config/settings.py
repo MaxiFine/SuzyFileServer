@@ -26,10 +26,12 @@ SECRET_KEY = 'django-insecure-0iwiytn7^hrwio$4x+r&)cr^d$i^&tur2pj59_bgyd89r@ei#j
 DEBUG = False
 
 ALLOWED_HOSTS = ['maxpython7.pythonanywhere.com',]
+# # For local
+# DEBUG = True
 
+# ALLOWED_HOSTS = []
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -146,8 +148,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # LOGIN LOGOUT DIRECTIONS
-LOGIN_REDIRECT_URL = 'feed'
-LOGOUT_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'about'
 
 # email setups
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

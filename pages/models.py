@@ -1,8 +1,8 @@
+import mimetypes  # for checking file types
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
 
-import mimetypes
 
 
 class File(models.Model):
